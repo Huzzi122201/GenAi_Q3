@@ -340,10 +340,13 @@ with col1:
             st.warning("Install `streamlit-drawable-canvas` for drawing support.")
 
     if input_method == "Upload Image" and input_image is not None:
-        if st.button("🖌️ Convert to Sketch"):
-            with st.spinner("Converting to sketch..."):
-                input_image = create_sketch_from_image(input_image)
-                st.image(input_image, caption="Converted Sketch", use_container_width=True)
+        if direction == "Sketch → Photo":
+            with st.expander("🛠️ Don't have a sketch? (Photo-to-Sketch helper)"):
+                st.caption("If you uploaded a **real photo** but want to test the Sketch→Photo model, you can extract a basic sketch from it first using this utility.")
+                if st.button("🖌️ Extract Sketch from Photo"):
+                    with st.spinner("Converting to sketch..."):
+                        input_image = create_sketch_from_image(input_image)
+                        st.image(input_image, caption="Converted Sketch", use_container_width=True)
 
     st.markdown("---")
     if st.button("🔄 Translate Image", use_container_width=True, type="primary"):
